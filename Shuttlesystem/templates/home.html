@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    <!-- google fonts -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Boldonse&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+
+    <div class="hero">
+    <div id="container">
+        <img src="{% static 'images/bgi.png' %}" alt="loading" id="overlay">
+        <h1>Smart Shuttle System</h1>
+    </div>
+    </div>
+        <!-- animation -->
+        <div class="transition">  
+            <div class="line"></div>
+        </div>
+        <!-- animation  end-->
+    <!--                             Window 2                          -->
+    <div class="content" id="window2">
+        <div id="conatiner2">
+            <div id="box1">
+                <h1>Reimagining  Urban  Mobility</h1>
+            </div>
+            <div id="abstract">
+                <p>A new way to move through the city — our eco-shuttle connects people to their destinations effortlessly. Clean, reliable,
+                       and sustainable transport for the future of urban living</p>
+            </div>
+            <div id="boxes">
+        <div id="box2">
+                <h3>Sustainability at the Core</h3>
+                <p>Every ride saves fuel and lowers carbon footprint, contributing to cleaner, greener cities.</p>
+            </div>
+
+            <div id="box3">
+                <h3>Dynamic Routes for Modern Cities</h3>
+                <p>Powered by AI-driven routing, our shuttles take the smartest path, avoiding congestion and getting you there faster.</p>
+            </div>
+
+            <div id="box4">
+                <h3>Last-Mile Problem, Solved</h3>
+                <p>Bridging the gap between stations and destinations with ease</p>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!--             Scroll down to window 2            -->
+    <!-- <button onclick="document.getElementById('window2').scrollIntoView({behavior: 'smooth', block: 'start'});"> -->
+  <!-- About us -->
+<!-- </button> -->
+    <!--                          window 3                  -->
+ <div id="window3">
+
+ </div>
+
+    <!-- <div class="nav">
+    <div class="indicator"></div>
+    <a href="#"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a href="#"><i class="fa-solid fa-bus"></i><span>Booking</span></a>
+    <a href="#"><i class="fa-solid fa-user-tie"></i><span>Operator</span></a>
+    <a href="#window2"><i class="fa-solid fa-person"></i><span>About us</span></a>
+    <a href="#"><i class="fa-solid fa-user-shield"></i><span>Admin</span></a>
+  </div> -->
+
+  <div class="nav">
+  <div class="indicator"></div>
+  <a href="#home"><i class="fa-solid fa-house"></i><span>Home</span></a>
+  <a href="#booking"><i class="fa-solid fa-bus"></i><span>Booking</span></a>
+  <a href="#operator"><i class="fa-solid fa-user-tie"></i><span>Operator</span></a>
+  <a href="#window2"><i class="fa-solid fa-person"></i><span>About us</span></a>
+  <a href="#admin"><i class="fa-solid fa-user-shield"></i><span>Admin</span></a>
+</div>
+
+
+  <!-- <div class="content">
+    <h1>Test Content</h1>
+    <p>Scroll to check if navbar stays at the top.</p>
+    <p style="height:1000px;"></p>
+  </div> -->
+
+
+
+
+
+
+
+
+
+  <script>
+    // Navbar floating indicator
+    // const indicator = document.querySelector('.indicator');
+    // const links = document.querySelectorAll('.nav a');
+
+    // function setActive(index) {
+    //   const link = links[index];
+    //   const offset = link.offsetLeft;
+    //   indicator.style.transform = `translateX(${offset}px)`;
+
+    //   const icon = link.querySelector('i').cloneNode(true);
+    //   indicator.innerHTML = '';
+    //   indicator.appendChild(icon);
+    // }
+
+    // window.addEventListener('load', () => setActive(0));
+    // links.forEach((link, index) => {
+    //   link.addEventListener('click', () => setActive(index));
+    // });
+
+                                       // sliding effect
+     
+const indicator = document.querySelector('.indicator');
+const links = document.querySelectorAll('.nav a');
+
+function setActiveByLink(link) {
+  const offset = link.offsetLeft;
+  indicator.style.transform = `translateX(${offset}px)`;
+
+  const icon = link.querySelector('i').cloneNode(true);
+  indicator.innerHTML = '';
+  indicator.appendChild(icon);
+}
+
+// Default active on load
+window.addEventListener('load', () => setActiveByLink(links[0]));
+
+// On click
+links.forEach(link => {
+  link.addEventListener('click', () => setActiveByLink(link));
+});
+
+// On scroll
+window.addEventListener("scroll", () => {
+  let currentLink = links[0];
+
+  links.forEach(link => {
+    const sectionId = link.getAttribute("href").substring(1); // remove #
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+
+      if (scrollY >= sectionTop - sectionHeight / 3) {
+        currentLink = link;
+      }
+    }
+  });
+
+  setActiveByLink(currentLink);
+});
+
+
+
+
+
+    // vertical line animation 
+      const line = document.querySelector('.line');
+
+  function animateLine(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // restart animation
+        line.style.animation = 'none';
+        line.offsetHeight; // trigger reflow
+        line.style.animation = 'expand 1s ease-out forwards';
+      }
+    });
+  }
+
+  const observer = new IntersectionObserver(animateLine, {
+    threshold: 0.5 // triggers when 50% visible
+  });
+
+  observer.observe(line);
+                     //   end
+  </script>
+</body>
+</html>
