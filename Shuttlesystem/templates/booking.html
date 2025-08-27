@@ -1,0 +1,427 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>book shuttle</title>
+  <link rel="stylesheet" href="{% static 'css/booking.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Boldonse&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+  <div class="nav">
+  <div class="indicator"></div>
+  <a href="{% url 'home' %}"><i class="fa-solid fa-house"></i><span>Home</span></a>
+  <a href="{% url 'booking' %}"><i class="fa-solid fa-bus"></i><span>Booking</span></a>
+  <a href="{% url 'operator' %}"><i class="fa-solid fa-user-tie"></i><span>Operator</span></a>
+  <a href="{% url 'about' %}"><i class="fa-solid fa-person"></i><span>About us</span></a>
+  <a href="{% url 'admin' %}"><i class="fa-solid fa-user-shield"></i><span>Admin</span></a>
+</div>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="auth-buttons">
+      <a href="#" class="login">Log in</a>
+      <a href="#" class="signup">Sign up</a>
+    </div>
+  </div>
+
+   <!-- qoute ***********************************************-->
+      <div class="tagline">
+  Book Sma<span class="big-r">R</span>t
+  <div class="bottom">ide Easy</div>
+</div>
+
+  <!-- SIGN UP FORM -->
+  <div class="overlay" id="signupOverlay">
+    <div class="form-box">
+      <span class="close-btn" onclick="closeOverlay('signupOverlay')">&times;</span>
+      <h2>Sign Up</h2>
+      <input type="text" placeholder="Full Name" required>
+      <input type="tel" placeholder="Phone Number" required>
+      <input type="number" placeholder="Age" required>
+      <input type="email" placeholder="Email" required>
+      <select required>
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+      <textarea placeholder="Address" rows="3" required></textarea>
+      <button id="signupSubmit">Create Account</button>
+    </div>
+  </div>
+
+ <!-- MAIN BOOKING SECTION -->
+  <div id="box">
+    <div class="left">
+      <div class="booking-card-modern">
+        <h1>Book Your Tickets</h1>
+        <div class="trip-toggle">
+          <button class="openPopup active" data-type="One-way"><i class="fa-solid fa-arrow-right"></i> One-way</button>
+          <button class="openPopup" data-type="Round-trip"><i class="fa-solid fa-retweet"></i> Round-trip</button>
+        </div>
+
+        <div class="booking-form-modern">
+          <h3 id="formTitle">Enter Info (One-way)</h3>
+          <div class="input-row">
+          <input type="text" placeholder="From">
+          <input type="text" placeholder="To">
+          </div>
+          <input type="date" placeholder="Departure Date">
+          <!-- <div id="returnDateField"><input type="date" placeholder="Return Date"></div> -->
+          <div class="input-row">
+          <input type="number" placeholder="Adults">
+          <input type="number" placeholder="Children">
+          </div>
+          <button class="submit-btn" id="submitForm">BOOK TICKETS</button>
+        </div>
+      </div>
+    </div>
+    <div class="right"><div class="empty-box">
+
+   <!--                       map                               -->
+           <div id="wrap">
+    <div id="controls">
+      <select id="areaSelect"></select>
+      <button class="btn" id="expandBtn" aria-label="Expand map">Expand</button>
+    </div>
+
+    <div id="mapContainer">
+      <div id="map" role="region" aria-label="Pilot zones map"></div>
+
+      <!-- Info Card -->
+      <aside id="zoneInfo" aria-live="polite">
+        <div id="zoneInfoHeader">
+          <div id="zoneInfoTitle">
+            <span id="zoneDot" class="dot" style="background:#ccc;"></span>
+            <span id="zoneName">—</span>
+          </div>
+          <button id="zoneInfoClose" title="Close">×</button>
+        </div>
+        <div id="zoneInfoBody">
+          <div><strong>Coverage:</strong> <span id="zoneRadius">—</span> km radius</div>
+          <div id="zoneDesc" style="margin-top:6px;">—</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+      
+    </div>
+  </div>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <div class="overlay" id="loginOverlay">
+    <div class="form-box">
+      <span class="close-btn" onclick="closeOverlay('loginOverlay')">&times;</span>
+      <h2>Log In</h2>
+      <input type="text" placeholder="Username" required>
+      <input type="text" placeholder="User ID" required>
+      <button id="loginSubmit">Log In</button>
+    </div>
+  </div>
+  <!-- svg car -->
+   <svg viewBox="0 0 304 112">
+    <g stroke="none" fill="none" fill-rule="evenodd">
+      <path id="track" d="M189.142857,4 C227.456875,4 248.420457,4.00974888 256.864191,4.00974888 C263.817211,4.00974888 271.61219,3.69583517 274.986231,6.63061513 C276.382736,7.84531176 279.193529,11.3814152 280.479499,13.4815847 C281.719344,15.5064248 284.841964,20.3571626 275.608629,20.3571626 C265.817756,20.3571626 247.262478,19.9013915 243.955117,19.9013915 C239.27946,19.9013915 235.350655,24.7304885 228.6344,24.7304885 C224.377263,24.7304885 219.472178,21.0304113 214.535324,21.0304113 C207.18393,21.0304113 200.882842,30.4798911 194.124187,30.4798911 C186.992968,30.4798911 182.652552,23.6245972 173.457298,23.6245972 C164.83277,23.6245972 157.191045,31.5424105 157.191045,39.1815359 C157.191045,48.466779 167.088672,63.6623005 166.666679,66.9065088 C166.378668,69.1206889 155.842137,79.2568633 151.508744,77.8570506 C145.044576,75.7689355 109.126667,61.6405346 98.7556561,52.9785141 C96.4766876,51.0750861 89.3680347,39.5769094 83.4195005,38.5221785 C80.6048001,38.0231057 73.0179337,38.7426555 74.4158694,42.6956376 C76.7088819,49.1796531 86.3280337,64.1214904 87.1781062,66.9065088 C88.191957,70.2280995 86.4690152,77.0567847 82.2060607,79.2503488 C79.2489435,80.7719756 73.1324132,82.8858479 64.7015706,83.0708761 C55.1604808,83.2802705 44.4254811,80.401884 39.1722168,80.401884 C25.7762119,80.401884 24.3280517,89.1260466 22.476679,94.4501705 C21.637667,96.8629767 20.4337535,108 33.2301959,108 C37.8976087,108 45.0757044,107.252595 53.4789069,103.876424 C61.8821095,100.500252 122.090049,78.119656 128.36127,75.3523302 C141.413669,69.5926477 151.190142,68.4987755 147.018529,52.0784879 C143.007818,36.291544 143.396957,23.4057975 145.221196,19.6589263 C146.450194,17.1346449 148.420955,14.8552817 153.206723,15.7880203 C155.175319,16.1716965 155.097637,15.0525421 156.757598,11.3860986 C158.417558,7.71965506 161.842736,4.00974888 167.736963,4.00974888 C177.205308,4.00974888 184.938832,4 189.142857,4 Z" stroke="green" stroke-width="2"></path>
+    <rect class="car" width="16" height="8" fill="white"></rect>
+    </g>
+  </svg>
+
+  
+
+  
+  <!-- SCRIPT -->
+  <!-- Anime.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+<!-- All your custom JS must be inside THIS script -->
+<script>
+  // Navbar indicator
+  const indicator = document.querySelector('.indicator');
+  const links = document.querySelectorAll('.nav a');
+
+  function setActive(index) {
+    const link = links[index];
+    const offset = link.offsetLeft;
+    indicator.style.transform = `translateX(${offset}px)`;
+    const icon = link.querySelector('i').cloneNode(true);
+    indicator.innerHTML = '';
+    indicator.appendChild(icon);
+  }
+
+  // Detect current URL path and set active link
+  window.addEventListener('load', () => {
+    let currentPath = window.location.pathname;
+    links.forEach((link, index) => {
+      if (link.getAttribute('href') === currentPath) {
+        setActive(index);
+      }
+    });
+  });
+
+  // Update indicator when clicking nav links
+  links.forEach((link, index) =>
+    link.addEventListener('click', () => setActive(index))
+  );
+
+  // Signup & Login logic
+  const signupOverlay = document.getElementById("signupOverlay");
+  const loginOverlay = document.getElementById("loginOverlay");
+  const bookingSection = document.getElementById("box");
+  
+  document.querySelector(".signup").addEventListener("click", e => {
+      e.preventDefault();
+      signupOverlay.style.display = "flex";
+  });
+  document.querySelector(".login").addEventListener("click", e => {
+      e.preventDefault();
+      loginOverlay.style.display = "flex";
+  });
+  
+  document.getElementById("signupSubmit").addEventListener("click", () => {
+      signupOverlay.style.display = "none";
+      bookingSection.style.display = "flex";
+      alert("Account created! You are signed in.");
+  });
+  document.getElementById("loginSubmit").addEventListener("click", () => {
+      loginOverlay.style.display = "none";
+      bookingSection.style.display = "flex";
+      alert("Welcome back! You are logged in.");
+  });
+  
+  function closeOverlay(id) {
+      document.getElementById(id).style.display = "none";
+  }
+
+  // Trip toggle
+  const formTitle = document.getElementById("formTitle");
+  const returnDateField = document.getElementById("returnDateField");
+  document.querySelectorAll(".openPopup").forEach(btn => {
+      btn.addEventListener("click", () => {
+      document.querySelectorAll(".openPopup").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      if (btn.dataset.type === "One-way") {
+          formTitle.textContent = "Enter Info (One-way)";
+          returnDateField.style.display = "none";
+      } else {
+          formTitle.textContent = "Enter Info (Round-trip)";
+          returnDateField.style.display = "block";
+      }
+    });
+  });
+
+  document.getElementById("submitForm").addEventListener("click", () => {
+      alert("Form submitted!");
+  });
+
+  // Anime.js car animation
+  const path = anime.path('#track');
+
+  anime({
+      targets: '.car',
+      translateX: path('x'),
+      translateY: path('y'),
+      rotate: path('angle'),
+      duration: 24000,
+      loop: true,
+      easing: 'linear'
+  });
+  
+  anime({
+      targets: '#track',
+      strokeDasharray: [anime.setDashoffset, 0],
+      easing: 'linear',
+      duration: 5000000000000000,
+      loop: true
+  });
+
+  //                                          map script
+  // <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    // --- Pilot areas (fixed colors) ---
+    const pilotAreas = [
+      { name: "Koramangala",     coords: [12.9352, 77.6245], color: "#a3cfff", radius: 2, desc: "Dense residential + cafes; strong last-mile demand." },
+      { name: "BTM Layout",      coords: [12.9166, 77.6101], color: "#b2f0b6", radius: 2, desc: "Student + office crowd; frequent short hops." },
+      { name: "Indiranagar",     coords: [12.9784, 77.6408], color: "#f3b2f0", radius: 2, desc: "Nightlife + offices; high evening usage." },
+      { name: "Whitefield",      coords: [12.9698, 77.7500], color: "#fff3a3", radius: 2, desc: "IT parks + apartments; peak-hour spikes." },
+      { name: "Jayanagar",       coords: [12.9250, 77.5938], color: "#d1b2ff", radius: 2, desc: "Well-planned blocks; steady day traffic." },
+      { name: "HSR Layout",      coords: [12.9105, 77.6412], color: "#ffd6a3", radius: 2, desc: "Startups + residences; consistent demand." },
+      { name: "Marathahalli",    coords: [12.9592, 77.6974], color: "#caffd1", radius: 2, desc: "Interchange hub; commuter transfers." },
+      { name: "Malleswaram",     coords: [13.0033, 77.5690], color: "#ffc9de", radius: 2, desc: "Old-town vibe; morning market trips." },
+    //   { name: "Electronic City", { /* name spacing kept */ } coords: [12.8390, 77.6770], color: "#b3f7f9", radius: 2, desc: "Tech campuses; peak in/out flow." },
+      { name: "Hebbal",          coords: [13.0358, 77.5970], color: "#f9d1a3", radius: 2, desc: "Outer ring node; airport feeder." }
+    ];
+
+    // (Tiny fix for the accidental object literal comment within the array above)
+    pilotAreas[8].name = "Electronic City";
+
+    // Build a lookup by name
+    const areaByName = Object.fromEntries(pilotAreas.map(a => [a.name, a]));
+
+    // --- Map init ---
+    const map = L.map('map').setView([12.9716, 77.5946], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+
+    // --- Draw zones as circles + behaviors ---
+    const zoneLayers = {}; // name -> circle layer
+    let activeArea = null; // currently selected area name
+    let marker = null;
+
+    pilotAreas.forEach(a => {
+      const circle = L.circle(a.coords, {
+        radius: a.radius * 1000,     // km -> m
+        color: a.color,              // stroke
+        weight: 2,
+        fillColor: a.color,
+        fillOpacity: 0.35
+      })
+      .addTo(map)
+      .bindTooltip(a.name, {direction: 'top', className: 'zone-tooltip', opacity: 0.95, sticky: true});
+
+      // Hover highlight (desktop). On mobile, click will still select & show card.
+      circle.on('mouseover', function() {
+        this.setStyle({ weight: 4, fillOpacity: 0.48 });
+        this.openTooltip();
+      });
+      circle.on('mouseout', function() {
+        if (activeArea !== a.name) {
+          this.setStyle({ weight: 2, fillOpacity: 0.35 });
+        }
+        this.closeTooltip();
+      });
+
+      // Select zone on click/tap
+      circle.on('click', function(e) {
+        selectArea(a.name, e.latlng);
+      });
+
+      zoneLayers[a.name] = circle;
+    });
+
+    // Select2 dropdown with colored dots
+    $('#areaSelect').select2({
+      placeholder: 'Select or search a pilot area',
+      minimumResultsForSearch: 0,
+      data: pilotAreas.map(a => ({ id: a.name, text: a.name }))
+    }).on('select2:select', (e) => {
+      const name = e.params.data.id;
+      selectArea(name, L.latLng(areaByName[name].coords[0], areaByName[name].coords[1]));
+    });
+
+    // Color dot renderer in Select2
+    const originalTemplate = $.fn.select2.defaults.defaults.templateResult;
+    $('#areaSelect').data('select2').options.set('templateResult', (opt) => {
+      if (!opt.id) return opt.text || originalTemplate(opt);
+      const color = areaByName[opt.text]?.color || '#ccc';
+      const $el = $(`
+        <span style="display:flex;align-items:center;gap:8px;">
+          <span style="width:14px;height:14px;border-radius:50%;background:${color};border:1px solid rgba(0,0,0,0.08);"></span>
+          <span>${opt.text}</span>
+        </span>
+      `);
+      return $el;
+    });
+    $('#areaSelect').data('select2').options.set('templateSelection', (opt) => {
+      if (!opt.id) return opt.text;
+      const color = areaByName[opt.text]?.color || '#ccc';
+      const $el = $(`
+        <span style="display:flex;align-items:center;gap:8px;">
+          <span style="width:12px;height:12px;border-radius:50%;background:${color};border:1px solid rgba(0,0,0,0.08);"></span>
+          <span>${opt.text}</span>
+        </span>
+      `);
+      return $el;
+    });
+
+    // Expand / Minimize
+    const expandBtn = document.getElementById('expandBtn');
+    const mapDiv = document.getElementById('map');
+    expandBtn.addEventListener('click', () => {
+      mapDiv.classList.toggle('expanded');
+      expandBtn.textContent = mapDiv.classList.contains('expanded') ? 'Minimize' : 'Expand';
+      setTimeout(() => map.invalidateSize(), 310);
+    });
+
+    // Map click: if inside any zone, select that zone; else show gentle notice
+    map.on('click', (e) => {
+      const hit = pilotAreas.find(a => map.distance(e.latlng, a.coords) <= (a.radius * 1000));
+      if (hit) {
+        selectArea(hit.name, e.latlng);
+      } else {
+        // Gentle feedback
+        showInfoCard(null);
+        alert('🚫 This location is outside our pilot areas.');
+      }
+    });
+
+    // Core: select area, update styles, move map, show card, drop marker
+    function selectArea(name, focusLatLng) {
+      // Reset previous active zone style
+      if (activeArea && zoneLayers[activeArea]) {
+        zoneLayers[activeArea].setStyle({ weight: 2, fillOpacity: 0.35 });
+      }
+      activeArea = name;
+
+      // Highlight active zone
+      zoneLayers[name].setStyle({ weight: 4, fillOpacity: 0.5 });
+
+      // Move map
+      const a = areaByName[name];
+      const center = L.latLng(a.coords[0], a.coords[1]);
+      // Prefer clicked point if provided, else zone center
+      const target = focusLatLng || center;
+      map.setView(target, 14, { animate: true });
+
+      // Update/drop marker
+      if (marker) map.removeLayer(marker);
+      marker = L.marker(target).addTo(map).bindPopup('${name}').openPopup();
+
+      // Show info card
+      showInfoCard(a);
+      // Sync dropdown if user clicked on the map/circle
+      const current = $('#areaSelect').val();
+      if (current !== name) {
+        $('#areaSelect').val(name).trigger('change.select2'); // update selection UI silently
+      }
+    }
+
+    // Info Card (show/hide & populate)
+    const zoneInfo = document.getElementById('zoneInfo');
+    const zoneDot  = document.getElementById('zoneDot');
+    const zoneName = document.getElementById('zoneName');
+    const zoneDesc = document.getElementById('zoneDesc');
+    const zoneRad  = document.getElementById('zoneRadius');
+
+    function showInfoCard(area) {
+      if (!area) {
+        zoneInfo.style.display = 'none';
+        return;
+      }
+      zoneDot.style.background = area.color;
+      zoneName.textContent = area.name;
+      zoneDesc.textContent = area.desc || 'Pilot service available in this zone.';
+      zoneRad.textContent = area.radius;
+      zoneInfo.style.display = 'block';
+    }
+
+    document.getElementById('zoneInfoClose').addEventListener('click', () => {
+      zoneInfo.style.display = 'none';
+      if (activeArea && zoneLayers[activeArea]) {
+        zoneLayers[activeArea].setStyle({ weight: 2, fillOpacity: 0.35 });
+      }
+      activeArea = null;
+      if (marker) { map.removeLayer(marker); marker = null; }
+      $('#areaSelect').val(null).trigger('change.select2');
+    });
+
+
+</script>

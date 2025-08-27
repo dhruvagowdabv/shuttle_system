@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Boldonse&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'home.css' %}"> -->
 
 </head>
 <body>
@@ -79,9 +79,9 @@
   <div class="nav">
   <div class="indicator"></div>
   <a href="#home"><i class="fa-solid fa-house"></i><span>Home</span></a>
-  <a href="#booking"><i class="fa-solid fa-bus"></i><span>Booking</span></a>
-  <a href="#operator"><i class="fa-solid fa-user-tie"></i><span>Operator</span></a>
-  <a href="#window2"><i class="fa-solid fa-person"></i><span>About us</span></a>
+  <a href="booking"><i class="fa-solid fa-bus"></i><span>Booking</span></a>
+  <a href="operator"><i class="fa-solid fa-user-tie"></i><span>Operator</span></a>
+  <a href="admins"><i class="fa-solid fa-person"></i><span>About us</span></a>
   <a href="#admin"><i class="fa-solid fa-user-shield"></i><span>Admin</span></a>
 </div>
 
@@ -162,11 +162,6 @@ window.addEventListener("scroll", () => {
 
   setActiveByLink(currentLink);
 });
-
-
-
-
-
     // vertical line animation 
       const line = document.querySelector('.line');
 

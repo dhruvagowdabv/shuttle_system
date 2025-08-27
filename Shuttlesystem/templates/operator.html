@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operator</title>
+  <link rel="stylesheet" href="{% static 'css/operator.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <!-- 🔥 SAME NAVBAR AS HOME -->
+  <div class="nav">
+    <div class="indicator"></div>
+    <a href="{% url 'home' %}"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a href="{% url 'booking' %}"><i class="fa-solid fa-bus"></i><span>Booking</span></a>
+    <a href="{% url 'operator' %}"><i class="fa-solid fa-user-tie"></i><span>Operator</span></a>
+    <a href="{% url 'about' %}"><i class="fa-solid fa-person"></i><span>About us</span></a>
+    <a href="{% url 'admin' %}"><i class="fa-solid fa-user-shield"></i><span>Admin</span></a>
+  </div>
+
+  <!-- Hero Section -->
+  <header class="site-header">
+    <div class="hero">
+      <h1>Drive with Us – Be Your Own Boss</h1>
+      <p>Join thousands of drivers earning flexibly and independently.</p>
+      <button id="openAuthBtn" class="cta-btn">Sign Up to Drive</button>
+    </div>
+  </header>
+
+  <!-- Benefits Section -->
+  <section class="benefits">
+    <h2>Why Partner With Us?</h2>
+    <div class="benefit-list">
+      <div class="benefit">
+        <i class="fa-solid fa-dollar-sign"></i>
+        <h3>Earn More</h3>
+        <p>Competitive rates and bonus incentives for drivers.</p>
+      </div>
+      <div class="benefit">
+        <i class="fa-solid fa-clock"></i>
+        <h3>Work on Your Time</h3>
+        <p>Flexible schedules – you decide when to drive.</p>
+      </div>
+      <div class="benefit">
+        <i class="fa-solid fa-shield-halved"></i>
+        <h3>Drive Safe</h3>
+        <p>In-app safety tools and 24/7 support for peace of mind.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <h3>How do I sign up?</h3>
+      <p>Click “Sign Up to Drive” and fill in your details. Our team will verify your documents.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What documents do I need?</h3>
+      <p>You’ll need a valid driving license, ID proof, and vehicle documents.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 DriveWithUs. All rights reserved.</p>
+  </footer>
+
+  <!-- Modal -->
+  <div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+
+      <!-- Tabs -->
+      <div class="tab-header">
+        <button class="tab-btn active" id="loginTab">Login</button>
+        <button class="tab-btn" id="signupTab">Sign Up</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="form active">
+        <h2>Login</h2>
+        <input type="text" placeholder="Driver ID" required>
+        <input type="password" id="loginPass" placeholder="Password" required>
+        <label><input type="checkbox" onclick="togglePassword('loginPass')"> Show Password</label>
+        <button type="submit">Login</button>
+        <p class="switch-text">New here? <a href="#" id="switchToSignup">Create an account</a></p>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signupForm" class="form">
+        <h2>Sign Up</h2>
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="text" placeholder="Driver ID" required>
+        <input type="password" id="signupPass" placeholder="Password" required>
+        <label><input type="checkbox" onclick="togglePassword('signupPass')"> Show Password</label>
+        <button type="submit">Sign Up</button>
+        <p class="switch-text">Already a user? <a href="#" id="switchToLogin">Login here</a></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- 🔥 Navbar Script (copied from home) -->
+  <script>
+    const indicator = document.querySelector('.indicator');
+    const links = document.querySelectorAll('.nav a');
+
+    function setActiveByLink(link) {
+      const offset = link.offsetLeft;
+      indicator.style.transform = `translateX(${offset}px)`;
+
+      const icon = link.querySelector('i').cloneNode(true);
+      indicator.innerHTML = '';
+      indicator.appendChild(icon);
+    }
+
+    // Default active = Operator (3rd link)
+    window.addEventListener('load', () => setActiveByLink(links[2]));
+
+    // On click
+    links.forEach(link => {
+      link.addEventListener('click', () => setActiveByLink(link));
+    });
+
+    // Show Password
+    function togglePassword(id) {
+      const field = document.getElementById(id);
+      field.type = field.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>
