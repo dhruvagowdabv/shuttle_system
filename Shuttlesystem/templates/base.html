@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Smart Shuttle{% endblock %}</title>
+
+    <!-- Common CSS (Navbar, Shared Styles) -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Boldonse&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ✅ Navbar (moved here so all pages share it) -->
+    <div class="nav">
+        <div class="indicator"></div>
+        <a href="{% url 'home' %}"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="{% url 'booking' %}"><i class="fa-solid fa-bus"></i><span>Booking</span></a>
+        <a href="{% url 'operator' %}"><i class="fa-solid fa-user-tie"></i><span>Operator</span></a>
+        <a href="{% url 'about' %}"><i class="fa-solid fa-person"></i><span>About us</span></a>
+        <a href="{% url 'admin' %}"><i class="fa-solid fa-user-shield"></i><span>Admin</span></a>
+    </div>
+
+    <!-- ✅ Page-specific content goes here -->
+    {% block content %}{% endblock %}
+
+    <!-- ✅ Navbar Script -->
+    <script>
+        const indicator = document.querySelector('.indicator');
+        const links = document.querySelectorAll('.nav a');
+
+        function setActiveByLink(link) {
+            const offset = link.offsetLeft;
+            indicator.style.transform = `translateX(${offset}px)`;
+
+            const icon = link.querySelector('i').cloneNode(true);
+            indicator.innerHTML = '';
+            indicator.appendChild(icon);
+        }
+
+        // Default active = Home
+        window.addEventListener('load', () => setActiveByLink(links[0]));
+
+        links.forEach(link => {
+            link.addEventListener('click', () => setActiveByLink(link));
+        });
+    </script>
+
+</body>
+</html>
